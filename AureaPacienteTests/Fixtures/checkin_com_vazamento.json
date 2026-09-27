@@ -1,0 +1,18 @@
+{
+  "sessaoId": "243724d7-e93b-4dcd-819b-5d90cd199385",
+  "estado": "CONCLUIDA",
+  "concluidaEm": "2026-09-26T12:00:00.000Z",
+  "situacao": "CLASSIFICADA",
+  "resultado": "VERMELHO",
+  "validadoClinicamente": false,
+  "versaoDoConjunto": "rascunho-0",
+  "explicacao": {
+    "porSintoma": [{"sintoma": "FEBRE", "classificacao": "VERMELHO",
+      "regrasDisparadas": [{"campo": "temperaturaMaxima", "classificacao": "VERMELHO", "justificativa": "Temperatura igual ou acima de 38,5 °C", "valorObservado": 38.7}]}]
+  },
+  "classificacoes": [{"resultado": "VERMELHO", "conjuntoDeLimiaresId": "4799efcb-0000-0000-0000-000000000000"}],
+  "conjuntoDeLimiaresId": "4799efcb-0000-0000-0000-000000000000",
+  "orientacoes": [{"id": "f002868a-852a-4635-a71a-4d8ff6485a0d", "sintoma": "FEBRE", "classificacao": "VERMELHO", "titulo": "Procure atendimento", "corpo": "Vá ao serviço de saúde agora.", "verbeteId": null}],
+  "pedeContatoComServico": true,
+  "enfermagemAvisada": true
+}

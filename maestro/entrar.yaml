@@ -1,0 +1,16 @@
+appId: com.zenixcode.aurea.paciente
+---
+- launchApp
+- tapOn:
+    id: "campo-CPF"
+- inputText: "12345678909"
+- tapOn:
+    id: "campo-Senha"
+- inputText: "aurea-demo-2026"
+- tapOn: "Entrar"
+- extendedWaitUntil:
+    visible: "Próximo compromisso"
+    timeout: 15000
+- takeScreenshot: maestro/shots/02-hoje
+- scroll
+- takeScreenshot: maestro/shots/03-hoje-baixo

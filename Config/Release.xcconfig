@@ -1,0 +1,2 @@
+// Release não aponta para produção com paciente real antes do parecer do Comitê de Ética.
+ENDERECO_DA_API = https:/$()/api.aurea.zenixcode.cloud

@@ -1,0 +1,14 @@
+appId: com.zenixcode.aurea.paciente
+---
+- launchApp
+- runFlow:
+    when:
+      visible: "Agora Não"
+    commands:
+      - tapOn: "Agora Não"
+- extendedWaitUntil:
+    visible: "Próximo compromisso"
+    timeout: 15000
+- takeScreenshot: maestro/shots/02-hoje
+- scroll
+- takeScreenshot: maestro/shots/03-hoje-baixo

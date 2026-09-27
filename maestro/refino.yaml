@@ -1,0 +1,23 @@
+appId: com.zenixcode.aurea.paciente
+---
+- launchApp
+- extendedWaitUntil:
+    visible: "Responder de novo|Começar"
+    timeout: 15000
+- takeScreenshot: maestro/shots/r1-hoje
+- tapOn: "Responder de novo|Começar"
+- extendedWaitUntil:
+    visible: "Você teve febre?"
+    timeout: 10000
+- takeScreenshot: maestro/shots/r2-pergunta
+- tapOn: "Sim"
+- extendedWaitUntil:
+    visible: "Qual foi a temperatura mais alta que você mediu?"
+    timeout: 5000
+- inputText: "38,5"
+- takeScreenshot: maestro/shots/r3-temperatura
+- tapOn: "Confirmar"
+- extendedWaitUntil:
+    visible: "Você tomou algum remédio para baixar a febre?"
+    timeout: 5000
+- takeScreenshot: maestro/shots/r4-antitermico

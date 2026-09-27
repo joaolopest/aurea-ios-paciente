@@ -1,0 +1,31 @@
+appId: com.zenixcode.aurea.paciente
+---
+- launchApp
+- extendedWaitUntil:
+    visible: "Próximo compromisso"
+    timeout: 15000
+- tapOn: "Histórico"
+- extendedWaitUntil:
+    visible: "dias respondidos"
+    timeout: 10000
+- takeScreenshot: maestro/shots/10-historico
+- tapOn: "Agenda"
+- extendedWaitUntil:
+    visible: "Próximo"
+    timeout: 10000
+- takeScreenshot: maestro/shots/11-agenda
+- tapOn: "Tratamento"
+- extendedWaitUntil:
+    visible: "Protocolo"
+    timeout: 10000
+- takeScreenshot: maestro/shots/12-tratamento
+- tapOn: "Febre"
+- extendedWaitUntil:
+    visible: "Quando procurar a equipe"
+    timeout: 5000
+- takeScreenshot: maestro/shots/13-verbete-febre
+- tapOn: "Biblioteca"
+- extendedWaitUntil:
+    visible: "Não validado clinicamente"
+    timeout: 10000
+- takeScreenshot: maestro/shots/14-biblioteca

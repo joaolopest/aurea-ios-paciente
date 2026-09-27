@@ -1,0 +1,3 @@
+// A barra dupla é escapada: xcconfig trata // como comentário.
+// Comitê de Ética, opção A: Debug aponta só para a API local, com dado sintético.
+ENDERECO_DA_API = http:/$()/localhost:3333
