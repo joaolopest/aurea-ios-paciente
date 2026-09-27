@@ -28,6 +28,11 @@ struct Ramo: Decodable, Sendable, Identifiable {
     let rotulo: String
     let porta: Pergunta
     let detalhes: [Pergunta]
+    /// Emoji do sintoma (`🤒`), mostrado só acima da pergunta-porta. Não é informação de
+    /// risco (não entra na Lei 1): ilustra o sintoma, nunca a gravidade dele. `nil` quando a
+    /// API não manda — decodifica igual, sem emoji (synthesized Decodable já usa
+    /// `decodeIfPresent` para propriedade opcional).
+    let emoji: String?
 
     var id: String { sintoma }
 }

@@ -6,6 +6,9 @@ struct Passo: Identifiable, Equatable, Sendable {
     let sintoma: String
     let rotuloDoRamo: String
     let pergunta: Pergunta
+    /// Emoji do ramo, só na pergunta-porta; nos detalhes é sempre `nil` — a tela não mostra
+    /// emoji em pergunta de detalhe.
+    let emoji: String?
     var id: String { pergunta.campo }
 }
 
@@ -85,10 +88,10 @@ final class CheckinStore {
     nonisolated static func passosVisiveis(arvore: ArvoreDeTriagem, respostas: [String: Valor]) -> [Passo] {
         var fila: [Passo] = []
         for ramo in arvore.sintomas {
-            fila.append(Passo(sintoma: ramo.sintoma, rotuloDoRamo: ramo.rotulo, pergunta: ramo.porta))
+            fila.append(Passo(sintoma: ramo.sintoma, rotuloDoRamo: ramo.rotulo, pergunta: ramo.porta, emoji: ramo.emoji))
             for detalhe in ramo.detalhes {
                 if let dep = detalhe.dependeDe, respostas[dep.campo] != dep.valor { continue }
-                fila.append(Passo(sintoma: ramo.sintoma, rotuloDoRamo: ramo.rotulo, pergunta: detalhe))
+                fila.append(Passo(sintoma: ramo.sintoma, rotuloDoRamo: ramo.rotulo, pergunta: detalhe, emoji: nil))
             }
         }
         return fila

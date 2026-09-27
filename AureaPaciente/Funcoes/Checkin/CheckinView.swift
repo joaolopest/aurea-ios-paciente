@@ -176,6 +176,9 @@ private struct TelaDePergunta: View {
                     Text(passo.rotuloDoRamo)
                         .tipo(.rotulo)
                         .foregroundStyle(Cor.ameixa)
+                    if let emoji = passo.emoji, !emoji.isEmpty {
+                        EmojiDaPergunta(emoji: emoji)
+                    }
                     Text(passo.pergunta.pergunta)
                         .tipo(.pergunta)
                         .foregroundStyle(Cor.tinta)
@@ -204,6 +207,28 @@ private struct TelaDePergunta: View {
             .padding(.horizontal, Espaco.margem)
             .padding(.bottom, 8)
         }
+    }
+}
+
+// MARK: - Emoji da pergunta-porta
+
+/// O emoji do sintoma acima da pergunta-porta ("Você teve febre?" + 🤒). Só a porta mostra —
+/// `Passo.emoji` já vem `nil` no detalhe. Ilustra o sintoma, não é gravidade: por isso não
+/// passa pela Lei 1. Entra com mola (Movimento.interface, sem quique — DC-001 proíbe motion
+/// expressivo no questionário) e, com Reduzir Movimento, só o opacity muda.
+private struct EmojiDaPergunta: View {
+    let emoji: String
+
+    @State private var apareceu = false
+    @Environment(\.accessibilityReduceMotion) private var reduzirMovimento
+
+    var body: some View {
+        Text(emoji)
+            .font(.system(size: 56))
+            .opacity(apareceu ? 1 : 0)
+            .scaleEffect(reduzirMovimento ? 1 : (apareceu ? 1 : 0.6))
+            .accessibilityHidden(true)
+            .onAppear { withAnimation(Movimento.interface) { apareceu = true } }
     }
 }
 

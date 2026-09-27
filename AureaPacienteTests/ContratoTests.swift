@@ -73,6 +73,29 @@ final class ContratoTests: XCTestCase {
         XCTAssertFalse(json.contains("valorBooleano\":null"), "Exatamente um tipo de valor por resposta.")
     }
 
+    /// API antiga, sem `emoji` na árvore: `Ramo.emoji` decodifica `nil` em vez de falhar.
+    func testRamoSemEmojiNaApiAntigaDecodificaNulo() throws {
+        let arvore = try decodificar(ArvoreDeTriagem.self, "triagem_arvore")
+        XCTAssertTrue(arvore.sintomas.allSatisfy { $0.emoji == nil })
+    }
+
+    /// API nova: emoji presente decodifica a string; `null` explícito também decodifica `nil`
+    /// (mesmo tratamento do campo ausente).
+    func testRamoComEmojiDecodifica() throws {
+        let arvore = try decodificar(ArvoreDeTriagem.self, "triagem_arvore_com_emoji")
+        XCTAssertEqual(arvore.sintomas.first(where: { $0.sintoma == "FEBRE" })?.emoji, "🤒")
+        XCTAssertNil(arvore.sintomas.first(where: { $0.sintoma == "DIARREIA" })?.emoji, "emoji: null explícito também vira nil.")
+        XCTAssertNil(arvore.sintomas.first(where: { $0.sintoma == "DOR" })?.emoji, "Campo ausente também vira nil.")
+    }
+
+    /// Só a pergunta-porta carrega o emoji do ramo; nenhum detalhe mostra emoji.
+    func testEmojiSoNaPortaNuncaNoDetalhe() throws {
+        let arvore = try decodificar(ArvoreDeTriagem.self, "triagem_arvore_com_emoji")
+        let fila = CheckinStore.passosVisiveis(arvore: arvore, respostas: ["apresentouFebre": .booleano(true)])
+        XCTAssertEqual(fila.first(where: { $0.pergunta.campo == "apresentouFebre" })?.emoji, "🤒")
+        XCTAssertTrue(fila.filter { $0.pergunta.campo != "apresentouFebre" }.allSatisfy { $0.emoji == nil }, "Detalhe nunca leva emoji.")
+    }
+
     func testTodaOpcaoDaArvoreTemRotulo() throws {
         let arvore = try decodificar(ArvoreDeTriagem.self, "triagem_arvore")
         for opcao in arvore.sintomas.flatMap(\.detalhes).flatMap({ $0.opcoes ?? [] }) {
