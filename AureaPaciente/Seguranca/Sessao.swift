@@ -73,6 +73,15 @@ final class Sessao {
         encerrarLocalmente(aviso: "Senha trocada. Entre com a senha nova.")
     }
 
+    #if DEBUG
+    /// Só na demonstração: segue com a senha provisória, sem trocá-la no banco local que
+    /// outras pessoas também usam. Passa pelas mesmas portas da entrada — o termo continua
+    /// sendo pedido se ainda não foi aceito.
+    func pularTrocaDeSenhaNaDemonstracao() async {
+        await conferirPortas()
+    }
+    #endif
+
     /// Aceite do termo. Só navega depois que o servidor confirma: o web já navegou com o
     /// aceite falhando e nunca registrou consentimento nenhum (commit 6614122).
     func aceitarTermo(versao: String) async throws {

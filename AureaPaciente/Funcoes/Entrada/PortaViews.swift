@@ -178,6 +178,17 @@ struct TrocaDeSenhaView: View {
                         }
                         .desabilitado(!pronto)
                     }
+
+                    #if DEBUG
+                    Button { Task { await sessao.pularTrocaDeSenhaNaDemonstracao() } } label: {
+                        // O frame no RÓTULO, não no botão: só assim a área de toque vira 44 pt.
+                        Text("Pular — só na demonstração")
+                            .tipo(.rotulo)
+                            .foregroundStyle(Cor.tintaSuave)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .contentShape(.rect)
+                    }
+                    #endif
                 }
                 .padding(.horizontal, Espaco.margem)
                 .padding(.bottom, 40)
